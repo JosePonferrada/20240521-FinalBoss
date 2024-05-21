@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import exam.utils.Apariencia;
+import exam.view.JPanelClasificacion;
+import exam.view.JPanelGestionSocios;
+import exam.view.JPanelSocioEquipo;
 
 
 public class Principal extends JFrame {
@@ -30,7 +33,7 @@ public class Principal extends JFrame {
 	 * Constructor.
 	 */
 	public Principal() {
-		super("Gestión de contratos - Bankonter");
+		super("Ventana Principal");
 		
 		this.setBounds(100, 100, 800, 680);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,10 +42,15 @@ public class Principal extends JFrame {
 		// Añadimos el panel
 		JTabbedPane jtp = new JTabbedPane();
 
+		JPanelGestionSocios jpgs = new JPanelGestionSocios();
+		JPanelSocioEquipo jpse = new JPanelSocioEquipo();
+		JPanelClasificacion jpc = new JPanelClasificacion();
 		
-		jtp.add(jtp);
+		jtp.add("Datos del socio", jpgs);
+		jtp.add("Socios por equipo", jpse);
+		jtp.add("Clasificación", jpc);
 		
-//		this.getContentPane().add(panelContrato);
+		this.getContentPane().add(jtp);
 	}
 
 	/**

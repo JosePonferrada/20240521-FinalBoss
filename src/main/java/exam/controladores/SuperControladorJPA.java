@@ -31,7 +31,7 @@ public class SuperControladorJPA {
 	 */
 	protected EntityManager getEntityManager () {
 		if (em == null) {
-			em = Persistence.createEntityManagerFactory("bankonterSupervitaminado")
+			em = Persistence.createEntityManagerFactory("20240521-FinalBoss")
 				.createEntityManager();
 		}
 		return em;
@@ -144,6 +144,26 @@ public class SuperControladorJPA {
         return query.getResultList();
 	}
 
+	public List<? extends Entidad> findByLikeOperator2 (String tableColumn, int likeText, String order) {
+		String sql = "SELECT * FROM " + this.nombreTabla + " WHERE " + 
+				 "UPPER(" + tableColumn + ")" + " LIKE ? order by ?" ;
+		Query query = getEntityManager().createNativeQuery(sql, this.tipoEntidad);
+        query.setParameter(1, "%" + 
+        		 likeText  
+        		+ "%");
+        query.setParameter(2, order);
+        
+        return query.getResultList();
+	}
+	
+	public List<? extends Entidad> orderByOperator (String tableColumn, String orderText) {
+		String sql = "SELECT * FROM " + this.nombreTabla + " order by ?";
+		Query query = getEntityManager().createNativeQuery(sql, this.tipoEntidad);
+        query.setParameter(1, orderText );
+        
+        return query.getResultList();
+	}
+	
 	/**
 	 * 
 	 * @param tableColumn
@@ -204,6 +224,20 @@ public class SuperControladorJPA {
 		em.getTransaction().commit();
 	}
 
-
+	public void update2 (Entidad e) {
+		EntityManager em = getEntityManager();
+		
+		em.getTransaction().begin();
+		em.merge(e);
+		em.getTransaction().commit();
+	}
+	
+	public void insertEntidad(Entidad e) {
+		EntityManager em = getEntityManager();
+		
+		em.getTransaction().begin();
+		em.persist(e);
+		em.getTransaction().commit();
+	}
 
 }
